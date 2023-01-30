@@ -1,0 +1,62 @@
+<div class="row">
+    <div class="col-md-12 col-sm-12 mt-3">
+        <button class="btn btn-primary ms-3" [disabled]="loading" (click)="backPage()">Anterior</button>
+        <button class="btn btn-primary ms-1" [disabled]="loading" (click)="nextPage()">Siguiente</button>
+        <button class="btn btn-primary float-end" (click)="logout()">LogOut</button>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-4 col-sm-12" *ngFor="let pokemon of pokemons; let i = index">
+        <div class="card ms-3 mt-3">
+            <div class="card-img-top {{pokemon.types[0].type.name}} d-flex justify-content-center"
+                 (click)="launchModal()">
+                <img [src]="pokemon.sprites.front_default" [alt]="pokemon.name">
+            </div>
+            <div class="card-body {{pokemon.types[0].type.name}}">
+                <div class="row">
+                    <div class="col-12">
+                        <h5 class="card-title badge rounded-pill ">
+                            <b>{{ pokemon.name | titlecase}}</b>
+                        </h5>
+                    </div>
+                    <div class="col-12">
+                        <h5 class="card-title badge rounded-pill ">
+                            <!-- <b>{{ pokemon2.flavor_text_entries[26].flavor_text}}</b> -->
+                        </h5>
+                    </div>
+                    <div class="col-12 mb-3 mt-1">
+                        <p class="card-text">
+                            <strong>Numero:</strong> #{{ pokemon.order }}
+                        </p>
+                    </div>
+                    <div class="col-6">
+                        <p class="card-text"><strong>Habilidades:</strong></p>
+                        <ul class="card-text" *ngFor="let p of pokemon.abilities">
+                            <li>{{p.ability.name}}</li>
+                        </ul>
+                    </div>
+                    <div class="col-6">
+                        <p class="card-text"><strong>Ataques:</strong></p>
+                        <ul class="card-text mb-0 px-0" *ngFor="let m of pokemon.moves.slice(0, 3)">
+                            <li>{{m.move.name}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row" [ngClass]="{'loader': loading}">
+    <div class="col" *ngIf="loading">
+        <div class="d-flex justify-content-center">
+            <strong class="me-3">Cargando...</strong>
+            <div class="spinner-border spinner-border-xl" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+    </div>
+</div>
